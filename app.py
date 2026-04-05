@@ -50,7 +50,7 @@ if st.sidebar.button("🔮 Predecir Éxito"):
 
         # Creamos una fila vacía con las columnas que espera el modelo
         entrada = pd.DataFrame(columns=columnas_modelo)
-        entrada.loc[0] = 0 # Llenamos de ceros inicialmente
+        entrada.loc[0] = 0.0 # Llenamos de ceros decimales inicialmente
 
         # Insertamos los datos numéricos
         entrada.loc[0, 'longitud_nombre_cancion'] = len_cancion
