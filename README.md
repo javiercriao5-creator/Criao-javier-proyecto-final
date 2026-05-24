@@ -1,112 +1,154 @@
-# Data Science Project Boilerplate
+# 🔮 Music Oracle — Hit Predictor with Machine Learning
 
-This boilerplate is designed to kickstart data science projects by providing a basic setup for database connections, data processing, and machine learning model development. It includes a structured folder organization for your datasets and a set of pre-defined Python packages necessary for most data science tasks.
-
-## Structure
-
-The project is organized as follows:
-
-- **`src/app.py`** → Main Python script where your project will run.
-- **`src/explore.ipynb`** → Notebook for exploration and testing. Once exploration is complete, migrate the clean code to `app.py`.
-- **`src/utils.py`** → Auxiliary functions, such as database connection.
-- **`requirements.txt`** → List of required Python packages.
-- **`models/`** → Will contain your SQLAlchemy model classes.
-- **`data/`** → Stores datasets at different stages:
-  - **`data/raw/`** → Raw data.
-  - **`data/interim/`** → Temporarily transformed data.
-  - **`data/processed/`** → Data ready for analysis.
+> Does your song have what it takes to be a worldwide hit? AI knows.
 
 
-## ⚡ Initial Setup in Codespaces (Recommended)
+![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.x-FF4B4B?logo=streamlit&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-RandomForest-orange?logo=scikit-learn&logoColor=white)
+![Status](https://img.shields.io/badge/Status-En%20producción-brightgreen)
 
-No manual setup is required, as **Codespaces is automatically configured** with the predefined files created by the academy for you. Just follow these steps:
+---
 
-1. **Wait for the environment to configure automatically**.
-   - All necessary packages and the database will install themselves.
-   - The automatically created `username` and `db_name` are in the **`.env`** file at the root of the project.
-2. **Once Codespaces is ready, you can start working immediately**.
+## 📌 Project Description
 
+**Musical Oracle** is a predictive Machine Learning model trained to identify whether a song has the profile of a **global hit** or a **song of niche**.
 
-## 💻 Local Setup (Only if you can't use Codespaces)
+The model was built using real data from **Last.fm**, analyzing listener patterns, plays, and music genre tags to learn what distinguishes a hit song from one that goes unnoticed.
 
-**Prerequisites**
+The application features an interactive web interface developed in **Streamlit** that allows users to input data for any song and obtain a real-time prediction, along with the mathematical probability calculated by the model.
 
-Make sure you have Python 3.11+ installed on your machine. You will also need pip to install the Python packages.
+---
 
-**Installation**
+## 🎯 Problem Solved
 
-Clone the project repository to your local machine.
+The music industry generates billions of euros annually, but the sector still relies primarily on intuition and experience. This project demonstrates that it is possible to use data and algorithms to anticipate the commercial potential of a song **before** investing in its production or promotion.
 
-Navigate to the project directory and install the required Python packages:
+Target Audiences:
+- Record labels and talent scouting
+- Advertising agencies seeking music for campaigns
+- Independent artists seeking to validate their work
+
+---
+
+## 🧠 Technology Stack
+
+| Category | Technology |
+
+---|---|
+
+| Language | Python 3.11+ |
+
+| Machine Learning | Scikit-Learn (Random Forest Classifier) ​​|
+
+| Data Analysis | Pandas, NumPy |
+
+| Web Interface | Streamlit |
+
+| Source Data | Last.fm (via API / custom dataset) |
+
+| Model Serialization | Joblib |
+
+| Environment | GitHub Codespaces / Local |
+
+---
+
+## 📊 Model Performance
+
+| Metric | Value |
+
+---|---|
+
+| Algorithm | Random Forest Classifier |
+
+| Accuracy | 79.9% |
+
+| Training Dataset | `dataset_lastfm_ML_listo.csv` |
+
+The model was trained using custom engineering features:
+- `song_name_length` — title length
+- `artist_name_length` — artist name length
+- `listener_play_ratio` — engagement rate
+- `tag_*` — music genre tags (one-hot encoding)
+
+---
+
+## 🚀 How to Run the Project
+
+### ⚡ Option 1: GitHub Codespaces (recommended)
+
+1. Click on **Code → Open with Codespaces**
+2. Wait for the environment to configure automatically
+3. Run the application:
 
 ```bash
+streamlit run app.py
+```
+
+### 💻 Option 2: Local Run
+
+**Prerequisites:** Python 3.11+
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/javiercriao5-creator/Criao-javier-proyecto-final.git
+cd Criao-javier-proyecto-final
+
+# 2. Install dependencies
 pip install -r requirements.txt
+
+# 3. Launch the application
+streamlit run app.py
 ```
 
-**Create a database (if necessary)**
+The app will automatically open at `http://localhost:8501`
 
-Create a new database within the Postgres engine by customizing and executing the following command:
+---
 
-```bash
-$ psql -U postgres -c "DO \$\$ BEGIN 
-    CREATE USER my_user WITH PASSWORD 'my_password'; 
-    CREATE DATABASE my_database OWNER my_user; 
-END \$\$;"
+## 🗂️ Project Structure
+
 ```
-Connect to the Postgres engine to use your database, manipulate tables, and data:
-
-```bash
-$ psql -U my_user -d my_database
-```
-
-Once inside PSQL, you can create tables, run queries, insert, update, or delete data, and much more!
-
-**Environment Variables**
-
-Create a .env file in the root directory of the project to store your environment variables, such as your database connection string:
-
-```makefile
-DATABASE_URL="postgresql://<USER>:<PASSWORD>@<HOST>:<PORT>/<DB_NAME>"
-
-#example
-DATABASE_URL="postgresql://my_user:my_password@localhost:5432/my_database"
+Criao-javier-proyecto-final/
+│
+├── app.py # Main Streamlit app
+├── oraculo_musical_modelo.pkl # Trained model (Random Forest)
+├── dataset_lastfm_ML_listo.csv # Processed Last.fm dataset
+├── requirements.txt # Project dependencies
+├── .env.example # Example environment variables
+│
+├── src/
+│ └── explore.ipynb # Exploration and EDA notebook
+│
+├── data/
+│ ├── raw/ # Raw data
+│ ├── interim/ # Temporarily transformed data
+│ └── processed/ # Data ready for modeling
+│
+└── models/ # ML models and artifacts
 ```
 
-## Running the Application
+---
 
-To run the application, execute the app.py script from the root directory of the project:
+## 🖥️ Using the Application
 
-```bash
-python src/app.py
-```
+1. Enter the **song title** and **artist name**
+2. Estimate the **monthly listeners** and the **Plays**
+3. Select up to 3 **musical genres** that describe the song
+4. Tap **"🔮 Predict Success"**
+5. The Oracle will reveal whether you have a **global hit** or a **niche track**, along with the mathematical probability calculated by the model
 
-## Adding Models
+---
 
-To add SQLAlchemy model classes, create new Python script files within the models/ directory. These classes should be defined according to your database schema.
+## 👤 Author
 
-Example model definition (`models/example_model.py`):
+**Gustavo Javier Criao**
+Electrical Engineer transitioning to Data Science | 4Geeks Academy
 
-```py
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectar-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/https://www.linkedin.com/in/gustavo-javier-criao-187824222/)
+[![GitHub](https://img.shields.io/badge/GitHub-javiercriao5--creator-181717?logo=github&logoColor=white)](https://github.com/javiercriao5-creator)
 
-Base = declarative_base()
+---
 
-class ExampleModel(Base):
-    __tablename__ = 'example_table'
-    id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(unique=True)
-```
+## 📄 License
 
-## Working with Data
-
-You can place your raw datasets in the data/raw directory, intermediate datasets in data/interim, and processed datasets ready for analysis in data/processed.
-
-To process data, you can modify the app.py script to include your data processing steps, using pandas for data manipulation and analysis.
-
-## Contributors
-
-This template was built as part of the [Data Science and Machine Learning Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning) by 4Geeks Academy by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Learn more about [4Geeks Academy BootCamp programs](https://4geeksacademy.com/us/programs) here.
-
-Other templates and resources like this can be found on the school's GitHub page.
+This project was developed as part of the **Data Science and Machine Learning Bootcamp** of [4Geeks Academy](https://4geeksacademy.com).
