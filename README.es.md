@@ -1,112 +1,141 @@
-# Plantilla de Proyecto de Ciencia de Datos
+# 🔮 Oráculo Musical — Predictor de Hits con Machine Learning
 
-Esta plantilla está diseñada para impulsar proyectos de ciencia de datos proporcionando una configuración básica para conexiones de base de datos, procesamiento de datos, y desarrollo de modelos de aprendizaje automático. Incluye una organización estructurada de carpetas para tus conjuntos de datos y un conjunto de paquetes de Python predefinidos necesarios para la mayoría de las tareas de ciencia de datos.
+> ¿Tiene tu canción lo que se necesita para ser un éxito mundial? La IA lo sabe.
 
-## Estructura
+![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.x-FF4B4B?logo=streamlit&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-RandomForest-orange?logo=scikit-learn&logoColor=white)
+![Status](https://img.shields.io/badge/Status-En%20producción-brightgreen)
 
-El proyecto está organizado de la siguiente manera:
+---
 
-- **`src/app.py`** → Script principal de Python donde correrá tu proyecto.
-- **`src/explore.ipynb`** → Notebook para exploración y pruebas. Una vez finalizada la exploración, migra el código limpio a `app.py`.
-- **`src/utils.py`** → Funciones auxiliares, como conexión a bases de datos.
-- **`requirements.txt`** → Lista de paquetes de Python necesarios.
-- **`models/`** → Contendrá tus clases de modelos SQLAlchemy.
-- **`data/`** → Almacena los datasets en diferentes etapas:
-  - **`data/raw/`** → Datos sin procesar.
-  - **`data/interim/`** → Datos transformados temporalmente.
-  - **`data/processed/`** → Datos listos para análisis.
+## 📌 Descripción del Proyecto
 
+**Oráculo Musical** es un modelo predictivo de Machine Learning entrenado para identificar si una canción tiene el perfil de un **Hit mundial** o de un **tema de nicho**.
 
-## ⚡ Configuración Inicial en Codespaces (Recomendado)
+El modelo fue construido a partir de datos reales de **Last.fm**, analizando patrones de oyentes, reproducciones y etiquetas de géneros musicales para aprender qué distingue a un éxito de una canción que pasa desapercibida.
 
-No es necesario realizar ninguna configuración manual, ya que **Codespaces se configura automáticamente** con los archivos predefinidos que ha creado la academia para ti. Simplemente sigue estos pasos:
+La aplicación cuenta con una interfaz web interactiva desarrollada en **Streamlit** que permite introducir los datos de cualquier canción y obtener una predicción en tiempo real, junto con la probabilidad matemática calculada por el modelo.
 
-1. **Espera a que el entorno se configure automáticamente**.
-   - Todos los paquetes necesarios y la base de datos se instalarán por sí mismos.
-   - El `username` y `db_name` creados automáticamente están en el archivo **`.env`** en la raíz del proyecto.
-2. **Una vez que Codespaces esté listo, puedes comenzar a trabajar inmediatamente**.
+---
 
+## 🎯 Problema que Resuelve
 
-## 💻 Configuración en Local (Solo si no puedes usar Codespaces)
+El sector musical mueve miles de millones de euros al año, pero la industria sigue apostando mayoritariamente por intuición y experiencia. Este proyecto demuestra que es posible usar datos y algoritmos para anticipar el potencial comercial de una canción **antes** de invertir en su producción o promoción.
 
-**Prerrequisitos**
+Orientado a:
+- Discográficas y scouting de talento
+- Agencias de publicidad en búsqueda de música para campañas
+- Artistas independientes que quieren validar su trabajo
 
-Asegúrate de tener Python 3.11+ instalado en tu máquina. También necesitarás pip para instalar los paquetes de Python.
+---
 
-**Instalación**
+## 🧠 Stack Tecnológico
 
-Clona el repositorio del proyecto en tu máquina local.
+| Categoría | Tecnología |
+|---|---|
+| Lenguaje | Python 3.11+ |
+| Machine Learning | Scikit-Learn (Random Forest Classifier) |
+| Análisis de datos | Pandas, NumPy |
+| Interfaz web | Streamlit |
+| Datos fuente | Last.fm (via API / dataset propio) |
+| Serialización del modelo | Joblib |
+| Entorno | GitHub Codespaces / Local |
 
-Navega hasta el directorio del proyecto e instala los paquetes de Python requeridos:
+---
+
+## 📊 Rendimiento del Modelo
+
+| Métrica | Valor |
+|---|---|
+| Algoritmo | Random Forest Classifier |
+| Precisión (Accuracy) | **79.9%** |
+| Dataset de entrenamiento | `dataset_lastfm_ML_listo.csv` |
+
+El modelo fue entrenado con features de ingeniería propias:
+- `longitud_nombre_cancion` — longitud del título
+- `longitud_nombre_artista` — longitud del nombre del artista
+- `ratio_reproducciones_oyentes` — ratio de engagement
+- `tag_*` — etiquetas de género musical (one-hot encoding)
+
+---
+
+## 🚀 Cómo Ejecutar el Proyecto
+
+### ⚡ Opción 1: GitHub Codespaces (recomendado)
+
+1. Haz clic en **Code → Open with Codespaces**
+2. Espera a que el entorno se configure automáticamente
+3. Ejecuta la aplicación:
 
 ```bash
+streamlit run app.py
+```
+
+### 💻 Opción 2: Ejecución Local
+
+**Prerrequisitos:** Python 3.11+
+
+```bash
+# 1. Clona el repositorio
+git clone https://github.com/javiercriao5-creator/Criao-javier-proyecto-final.git
+cd Criao-javier-proyecto-final
+
+# 2. Instala las dependencias
 pip install -r requirements.txt
+
+# 3. Lanza la aplicación
+streamlit run app.py
 ```
 
-**Crear una base de datos (si es necesario)**
+La app se abrirá automáticamente en `http://localhost:8501`
 
-Crea una nueva base de datos dentro del motor Postgres personalizando y ejecutando el siguiente comando: 
+---
 
-```bash
-$ psql -U postgres -c "DO \$\$ BEGIN 
-    CREATE USER mi_usuario WITH PASSWORD 'mi_contraseña'; 
-    CREATE DATABASE mi_base_de_datos OWNER mi_usuario; 
-END \$\$;"
+## 🗂️ Estructura del Proyecto
+
 ```
-Conéctate al motor Postgres para usar tu base de datos, manipular tablas y datos: 
-
-```bash
-$ psql -U mi_usuario -d mi_base_de_datos
-```
-
-¡Una vez que estés dentro de PSQL podrás crear tablas, hacer consultas, insertar, actualizar o eliminar datos y mucho más!
-
-**Variables de entorno**
-
-Crea un archivo .env en el directorio raíz del proyecto para almacenar tus variables de entorno, como tu cadena de conexión a la base de datos:
-
-```makefile
-DATABASE_URL="postgresql://<USUARIO>:<CONTRASEÑA>@<HOST>:<PUERTO>/<NOMBRE_BD>"
-
-#example
-DATABASE_URL="postgresql://mi_usuario:mi_contraseña@localhost:5432/mi_base_de_datos"
+Criao-javier-proyecto-final/
+│
+├── app.py                          # App principal de Streamlit
+├── oraculo_musical_modelo.pkl      # Modelo entrenado (Random Forest)
+├── dataset_lastfm_ML_listo.csv     # Dataset procesado de Last.fm
+├── requirements.txt                # Dependencias del proyecto
+├── .env.example                    # Variables de entorno de ejemplo
+│
+├── src/
+│   └── explore.ipynb               # Notebook de exploración y EDA
+│
+├── data/
+│   ├── raw/                        # Datos originales sin procesar
+│   ├── interim/                    # Datos transformados temporalmente
+│   └── processed/                  # Datos listos para modelado
+│
+└── models/                         # Modelos y artefactos de ML
 ```
 
-## Ejecutando la Aplicación
+---
 
-Para ejecutar la aplicación, ejecuta el script app.py desde la raíz del directorio del proyecto:
+## 🖥️ Uso de la Aplicación
 
-```bash
-python src/app.py
-```
+1. Introduce el **nombre de la canción** y el **nombre del artista**
+2. Estima los **oyentes mensuales** y las **reproducciones**
+3. Selecciona hasta 3 **géneros musicales** que describan la canción
+4. Pulsa **"🔮 Predecir Éxito"**
+5. El Oráculo te revelará si tienes un **Hit mundial** o un **tema de nicho**, junto con la probabilidad matemática calculada por el modelo
 
-## Añadiendo Modelos
+---
 
-Para añadir clases de modelos SQLAlchemy, crea nuevos archivos de script de Python dentro del directorio models/. Estas clases deben ser definidas de acuerdo a tu esquema de base de datos.
+## 👤 Autor
 
-Definición del modelo de ejemplo (`models/example_model.py`):
+**Gustavo Javier Criao**
+Profesional Eléctrico en transición a Data Science | 4Geeks Academy
 
-```py
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectar-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/https://www.linkedin.com/in/gustavo-javier-criao-187824222/)
+[![GitHub](https://img.shields.io/badge/GitHub-javiercriao5--creator-181717?logo=github&logoColor=white)](https://github.com/javiercriao5-creator)
 
-Base = declarative_base()
+---
 
-class ExampleModel(Base):
-    __tablename__ = 'example_table'
-    id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(unique=True)
-```
+## 📄 Licencia
 
-## Trabajando con Datos
-
-Puedes colocar tus conjuntos de datos brutos en el directorio data/raw, conjuntos de datos intermedios en data/interim, y los conjuntos de datos procesados listos para el análisis en data/processed.
-
-Para procesar datos, puedes modificar el script app.py para incluir tus pasos de procesamiento de datos, utilizando pandas para la manipulación y análisis de datos.
-
-## Contribuyentes
-
-Esta plantilla fue construida como parte del [Data Science and Machine Learning Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning) de 4Geeks Academy por [Alejandro Sanchez](https://twitter.com/alesanchezr) y muchos otros contribuyentes. Descubre más sobre [los programas BootCamp de 4Geeks Academy](https://4geeksacademy.com/us/programs) aquí.
-
-Otras plantillas y recursos como este se pueden encontrar en la página de GitHub de la escuela.
+Este proyecto fue desarrollado como parte del **Data Science and Machine Learning Bootcamp** de [4Geeks Academy](https://4geeksacademy.com).
